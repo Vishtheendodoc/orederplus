@@ -6,7 +6,7 @@ import json
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from streamlit_autorefresh import st_autorefresh
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import re
 import threading
 import time
@@ -1159,4 +1159,5 @@ def main():
         st.info(f"Depth WebSocket: {DEPTH_WSS}")
 
 if __name__ == "__main__":
+
     main()
