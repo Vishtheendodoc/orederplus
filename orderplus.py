@@ -833,8 +833,9 @@ def render_order_flow_tab():
         
         # Filter for current day
         today = datetime.now().date()
-        start_time = datetime.combine(today, datetime.time(9, 0))
-        end_time = datetime.combine(today, datetime.time(23, 59, 59))
+        start_time = datetime.combine(today, time(9, 0))
+        end_time = datetime.combine(today, time(23, 59, 59))
+
         live_df = live_df[(live_df['timestamp'] >= pd.Timestamp(start_time)) & 
                          (live_df['timestamp'] <= pd.Timestamp(end_time))]
         
@@ -1161,3 +1162,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
