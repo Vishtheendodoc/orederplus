@@ -6,10 +6,10 @@ import json
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from streamlit_autorefresh import st_autorefresh
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time   # add time here
+import time as time_module                       # alias standard time module
 import re
 import threading
-import time
 import logging
 import streamlit.components.v1 as components
 import queue
@@ -833,8 +833,9 @@ def render_order_flow_tab():
         
         # Filter for current day
         today = datetime.now().date()
-        start_time = datetime.combine(today, datetime.time(9, 0))
-        end_time   = datetime.combine(today, datetime.time(23, 59, 59))
+        start_time = datetime.combine(today, time(9, 0))
+        end_time   = datetime.combine(today, time(23, 59, 59))
+
 
         live_df = live_df[(live_df['timestamp'] >= pd.Timestamp(start_time)) & 
                          (live_df['timestamp'] <= pd.Timestamp(end_time))]
@@ -916,13 +917,15 @@ def render_depth_tab():
         if start_btn:
             st.session_state["depth_manager"].start()
             st.success("Depth manager started.")
-            time.sleep(1)
+            time_module.sleep(1)
+
             st.rerun()
             
         if stop_btn:
             st.session_state["depth_manager"].stop()
             st.success("Depth manager stopped.")
-            time.sleep(1)
+            time_module.sleep(1)
+
             st.rerun()
     
     with col2:
@@ -943,7 +946,8 @@ def render_depth_tab():
             st.session_state["subscribed"] = list(dict.fromkeys(st.session_state["subscribed"]))
             st.session_state["depth_manager"].subscribe([tup])
             st.success(f"Subscribed to ({ex}, {sec_id.strip()})")
-            time.sleep(1)
+            time_module.sleep(1)
+
             st.rerun()
     
     # Current subscriptions
@@ -1162,5 +1166,4 @@ def main():
 if __name__ == "__main__":
 
     main()
-
 
